@@ -3,28 +3,29 @@ package com.simpletomcat.todo;
 import java.util.Objects;
 
 /**
- * Represents a task in the TODO application
+ * Represents a task in the Simple Tomcat application
  */
 public class Task {
-    private int id;
+    private final int id;
     private String title;
     private String description;
     private boolean completed;
 
     public Task() {
+        this.id = 0;
     }
 
     public Task(int id, String title, String description) {
         this.id = id;
-        this.title = title;
-        this.description = description;
+        setTitle(title);
+        setDescription(description);
         this.completed = false;
     }
 
     public Task(int id, String title, String description, boolean completed) {
         this.id = id;
-        this.title = title;
-        this.description = description;
+        setTitle(title);
+        setDescription(description);
         this.completed = completed;
     }
 
@@ -32,16 +33,15 @@ public class Task {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        if (title == null || title.trim().isEmpty()) {
+            throw new IllegalArgumentException("Title cannot be null or empty");
+        }
+        this.title = title.trim();
     }
 
     public String getDescription() {
@@ -49,7 +49,10 @@ public class Task {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description == null || description.trim().isEmpty()) {
+            throw new IllegalArgumentException("Description cannot be null or empty");
+        }
+        this.description = description.trim();
     }
 
     public boolean isCompleted() {
