@@ -1,10 +1,10 @@
 package com.simpletomcat.todo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  * Servlet to handle HTTP requests for the TODO application
  */
 public class TODOService extends HttpServlet {
+    private static final long serialVersionUID = 1L;
     
     private final TaskManager taskManager;
     private final ObjectMapper objectMapper;

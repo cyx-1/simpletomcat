@@ -4,7 +4,7 @@ import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.servlets.DefaultServlet;
-import javax.servlet.ServletException;
+import jakarta.servlet.ServletException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,6 +21,9 @@ public class Main {
     public static void main(String[] args) throws LifecycleException, ServletException, IOException {
         // Create Tomcat instance
         Tomcat tomcat = new Tomcat();
+        
+        // Configure the HTTP connector
+        tomcat.getConnector();
         tomcat.setPort(PORT);
         
         // Create temp directory for work directory
@@ -28,17 +31,18 @@ public class Main {
         tomcat.setBaseDir(tempPath.toString());
         
         // Create context
-        String docBase = new File(".").getAbsolutePath();
-        Context context = tomcat.addWebapp(CONTEXT_PATH, docBase);
+        String webappDirLocation = "src/main/resources";
+        Context context = tomcat.addWebapp(CONTEXT_PATH, new File(webappDirLocation).getAbsolutePath());
         
         // Setup static resources
         setupStaticResources();
         
         // Add static file serving support
-        File staticFolder = new File("src/main/resources/static");
-        context.setDocBase(staticFolder.getAbsolutePath());
+        String staticPath = new File("src/main/resources/static").getAbsolutePath();
+        context.setDocBase(staticPath);
         context.addWelcomeFile("index.html");
         
+        // Add default servlet for serving static files
         //Tomcat.addServlet(context, "default", new DefaultServlet());
         //context.addServletMappingDecoded("/", "default");
         
