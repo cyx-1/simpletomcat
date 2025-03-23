@@ -5,6 +5,8 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.servlets.DefaultServlet;
 import jakarta.servlet.ServletException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,6 +19,7 @@ import java.nio.file.Paths;
 public class Main {
     private static final int PORT = 8080;
     private static final String CONTEXT_PATH = "";
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
     
     public static void main(String[] args) throws LifecycleException, ServletException, IOException {
         // Create Tomcat instance
@@ -52,8 +55,8 @@ public class Main {
         
         // Start server
         tomcat.start();
-        System.out.println("Server started on port " + PORT);
-        System.out.println("Access the application at http://localhost:" + PORT + "/");
+        logger.info("Server started on port {}", PORT);
+        logger.info("Access the application at http://localhost:{}/", PORT);
         
         // Keep server running
         tomcat.getServer().await();
