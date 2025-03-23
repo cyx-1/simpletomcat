@@ -35,7 +35,7 @@ public class TaskManagerTest {
         
         // Verify task was added
         assertEquals("Task count should increase by 1", initialCount + 1, taskManager.getTaskCount());
-        assertNotNull("Task should have an ID", newTask.getId());
+        assertTrue("Task should have a valid ID", newTask.getId() > 0);
         assertEquals("Task title should match", "Test Task", newTask.getTitle());
         assertEquals("Task description should match", "Test Description", newTask.getDescription());
         assertFalse("New task should not be completed", newTask.isCompleted());
